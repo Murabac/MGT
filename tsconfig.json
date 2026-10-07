@@ -17,5 +17,5 @@
     "paths": { "@/*": ["./*"] }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "mgt-group*", "design"]
+  "exclude": ["node_modules", "mgt-group*", "design", "design-ref"]
 }

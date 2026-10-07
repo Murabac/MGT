@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Barlow_Semi_Condensed, Plus_Jakarta_Sans } from "next/font/google";
+import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { SubtleParticles } from "@/components/SubtleParticles";
 import { brandAssets } from "@/lib/assets";
 import "./globals.css";
 
@@ -20,15 +22,21 @@ const condensed = Barlow_Semi_Condensed({
 });
 
 export const metadata: Metadata = {
-  title: "MGT Group",
-  description: "Maandeeq Global Transportation Ltd.",
+  metadataBase: new URL("https://www.mgtgroup.com"),
+  title: {
+    default: "MGT Group | Maandeeq Global Transportation",
+    template: "%s",
+  },
+  description:
+    "Hargeisa 3PL partner for UN agencies, INGOs, and public institutions — fleet, freight, customs, procurement, and warehousing across Somaliland and Somalia.",
   icons: {
     icon: [{ url: brandAssets.icon192, sizes: "192x192", type: "image/png" }],
     apple: [{ url: brandAssets.appleTouchIcon, sizes: "180x180" }],
   },
   openGraph: {
-    title: "MGT Group",
-    description: "Maandeeq Global Transportation Ltd.",
+    title: "MGT Group | Maandeeq Global Transportation",
+    description:
+      "Third-party logistics across Somaliland and Somalia for UN agencies, INGOs, and public institutions.",
     images: [{ url: brandAssets.ogImage, width: 1200, height: 630 }],
   },
 };
@@ -53,6 +61,8 @@ export default function RootLayout({
         <Header />
         <div className="flex-1">{children}</div>
         <Footer />
+        <SubtleParticles />
+        <FloatingWhatsApp />
       </body>
     </html>
   );

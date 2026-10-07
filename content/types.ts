@@ -10,11 +10,14 @@ export interface ServiceItem {
 
 export interface ClientItem {
   name: string;
+  shortName: string;
   workDone: string;
+  logo: string;
   locationOrProject?: string;
 }
 
 export interface ValueItem {
+  id: string;
   title: string;
   description: string;
 }

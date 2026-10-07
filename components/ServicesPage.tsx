@@ -1,0 +1,198 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { useMemo, useState } from "react";
+import { PageHero } from "@/components/PageHero";
+import {
+  COMPANY_INFO,
+  SERVICE_CATEGORIES,
+  SERVICES,
+  servicesInCategory,
+} from "@/content/site";
+import type { ServiceCategoryId } from "@/content/types";
+import { serviceImages } from "@/lib/assets";
+import { telHref } from "@/lib/phone";
+
+export function ServicesPage() {
+  const [activeCategory, setActiveCategory] =
+    useState<ServiceCategoryId>("all");
+
+  const filteredServices = useMemo(
+    () => servicesInCategory(activeCategory),
+    [activeCategory],
+  );
+
+  return (
+    <main id="main" className="w-full bg-page text-ink">
+      <PageHero
+        eyebrow="Logistics & Transport Services"
+        title="Twelve capabilities for field programs."
+        description="Vehicle leasing, heavy haulage, freight, customs, procurement, warehousing, and travel support — coordinated from Hargeisa for UN agencies, INGOs, and public institutions."
+        meta={
+          <>
+            <span className="font-bold text-white">
+              {SERVICES.length} specialized services
+            </span>
+            <span className="text-[#1b5ec2]">·</span>
+            <span>Somaliland & Somalia corridors</span>
+          </>
+        }
+      />
+
+      <section className="sticky top-[96px] z-20 border-b border-line bg-page/95 backdrop-blur-sm">
+        <div className="mx-auto flex max-w-page flex-wrap items-center gap-1.5 px-4 py-3 sm:px-6">
+          {SERVICE_CATEGORIES.map((category) => {
+            const active = activeCategory === category.id;
+            const label =
+              category.id === "all"
+                ? `All (${SERVICES.length})`
+                : category.label;
+            return (
+              <button
+                key={category.id}
+                type="button"
+                onClick={() => setActiveCategory(category.id)}
+                className={`rounded-[2px] px-3 py-1.5 text-[11px] font-bold transition-colors ${
+                  active
+                    ? "bg-blue text-white shadow-sm"
+                    : "bg-surface text-ink hover:bg-line/60"
+                }`}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="border-b border-line py-10 md:py-14">
+        <div className="mx-auto max-w-page space-y-8 px-4 sm:px-6 md:space-y-10">
+          {filteredServices.map((service) => {
+            const image = serviceImages[service.id];
+            return (
+              <article
+                key={service.id}
+                id={service.id}
+                className="scroll-mt-[160px] overflow-hidden rounded-brand border border-line bg-page"
+              >
+                <div className="grid grid-cols-1 lg:grid-cols-12">
+                  <div className="relative aspect-[16/10] bg-surface lg:col-span-5 lg:aspect-auto lg:min-h-[280px]">
+                    {image ? (
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
+                        fill
+                        className="object-cover"
+                        sizes="(min-width: 1024px) 420px, 100vw"
+                      />
+                    ) : null}
+                    <span className="absolute left-3 top-3 rounded-[2px] bg-white/95 px-2 py-0.5 font-mono text-xs font-bold tabular-nums text-blue shadow-sm">
+                      {service.number}
+                    </span>
+                  </div>
+
+                  <div className="flex flex-col justify-between gap-5 p-5 sm:p-6 lg:col-span-7 lg:p-8">
+                    <div className="space-y-3">
+                      <h2 className="text-xl font-extrabold tracking-tight text-ink sm:text-2xl">
+                        {service.title}
+                      </h2>
+                      <p className="text-sm font-medium text-blue">
+                        {service.summary}
+                      </p>
+                      <p className="text-sm leading-relaxed text-muted">
+                        {service.description}
+                      </p>
+
+                      {service.fleetOrItems && service.fleetOrItems.length > 0 ? (
+                        <div className="border-t border-line pt-3">
+                          <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-ink">
+                            {service.id === "procurement"
+                              ? "Categories"
+                              : "Available fleet / items"}
+                          </p>
+                          <div className="flex flex-wrap gap-1.5">
+                            {service.fleetOrItems.map((item) => (
+                              <span
+                                key={item}
+                                className="rounded-[2px] border border-line bg-surface px-2.5 py-1 text-[11px] text-muted"
+                              >
+                                {item}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      ) : null}
+
+                      {service.fieldNote ? (
+                        <p className="border-l-2 border-green pl-3 text-xs leading-relaxed text-muted">
+                          <span className="font-bold text-green">
+                            Field note:{" "}
+                          </span>
+                          {service.fieldNote}
+                        </p>
+                      ) : null}
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-3 border-t border-line pt-4">
+                      <Link
+                        href={`/contact?service=${encodeURIComponent(service.title)}`}
+                        className="rounded-brand bg-blue px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-deep"
+                      >
+                        Request this service
+                      </Link>
+                      <a
+                        href={telHref(COMPANY_INFO.phones[0])}
+                        className="text-xs font-bold text-ink hover:text-blue"
+                      >
+                        Call {COMPANY_INFO.phones[0]}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="border-t border-[#167a2a] bg-green py-12 text-white">
+        <div className="mx-auto max-w-page px-4 sm:px-6">
+          <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
+            <div className="space-y-2">
+              <span className="font-condensed text-xs font-bold uppercase tracking-widest text-yellow">
+                Need a custom package?
+              </span>
+              <h2 className="text-xl font-bold text-white sm:text-2xl">
+                Tell us the corridor, cargo, and timeline.
+              </h2>
+              <p className="text-xs text-white/80 sm:text-sm">
+                Dispatch desk:{" "}
+                <a
+                  href={telHref(COMPANY_INFO.phones[0])}
+                  className="font-mono font-bold text-white hover:text-yellow"
+                >
+                  {COMPANY_INFO.phones[0]}
+                </a>
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/clients"
+                className="rounded-brand border border-white/35 bg-transparent px-5 py-3 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:border-white hover:bg-white/10"
+              >
+                See partners
+              </Link>
+              <Link
+                href="/contact"
+                className="rounded-brand bg-white px-6 py-3 text-xs font-bold uppercase tracking-wider text-green transition-colors hover:bg-yellow hover:text-ink"
+              >
+                Send enquiry
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}

@@ -9,7 +9,7 @@ import type {
 /**
  * Public site copy from the design reference.
  * Keep content/site-context.json as the company-profile source of record.
- * Confirm before launch: GM name, 100% corridor coverage, and 24/7 NGO emergency line.
+ * Confirm before launch: GM name (Mohamed Omar Farah).
  */
 
 export const COMPANY_INFO = {
@@ -150,7 +150,7 @@ export const SERVICES: ServiceItem[] = [
     id: 'warehouse-management',
     number: '11',
     title: 'Warehouse management',
-    summary: 'Secure short- and long-term storage facilities with 24/7 security and inventory controls.',
+    summary: 'Secure short- and long-term storage facilities with round-the-clock security and inventory controls.',
     description:
       'Short- and long-term storage, loading and unloading, labeling and packing, fumigation, pest control, packing and crating. Warehouses have theft and fire alarms and round-the-clock guards with strict ledger tracking.',
   },
@@ -167,39 +167,57 @@ export const SERVICES: ServiceItem[] = [
 export const CLIENTS: ClientItem[] = [
   {
     name: 'Vétérinaires Sans Frontières Suisse (VSF Suisse)',
+    shortName: 'VSF Suisse',
     workDone: 'Vehicle rental',
+    logo: '/partners/vsf-suisse.svg',
   },
   {
     name: 'Plan International',
+    shortName: 'Plan International',
     workDone: 'Motor-vehicle hire, Somaliland and Somalia',
+    logo: '/partners/plan-international.svg',
   },
   {
     name: 'Zamzam Foundation',
+    shortName: 'Zamzam Foundation',
     workDone: 'Vehicle rental',
+    logo: '/partners/zamzam.png',
   },
   {
     name: 'United Nations Assistance Mission in Somalia (UNSOM)',
+    shortName: 'UNSOM',
     workDone: 'Client',
+    logo: '/partners/unsom.svg',
   },
   {
     name: 'World Food Programme (WFP)',
+    shortName: 'World Food Programme',
     workDone: 'Procurement and delivery of supplies',
+    logo: '/partners/wfp.svg',
   },
   {
     name: 'Welthungerhilfe (WHH)',
+    shortName: 'Welthungerhilfe',
     workDone: 'Distribution of hygiene kits and tools in the Sanaag region',
+    logo: '/partners/welthungerhilfe.png',
   },
   {
     name: 'One Earth Future',
+    shortName: 'One Earth Future',
     workDone: 'Client',
+    logo: '/partners/one-earth-future.png',
   },
   {
     name: 'Cheetah Conservation Fund (CCF)',
+    shortName: 'Cheetah Conservation Fund',
     workDone: 'Vehicle rental for field work in Maroodi Jeex',
+    logo: '/partners/ccf.svg',
   },
   {
     name: 'Ministry of Agricultural Development, Somaliland',
+    shortName: 'Ministry of Agricultural Development',
     workDone: 'Transport for the World Bank Barwaaqo project',
+    logo: '/partners/somaliland.svg',
   },
 ];
 
@@ -234,34 +252,42 @@ export const VISION_MISSION = {
 
 export const VALUES: ValueItem[] = [
   {
+    id: 'reliability',
     title: 'Reliability',
     description: 'We fulfill contracted schedules and delivery commitments without compromise.',
   },
   {
+    id: 'safety-and-security',
     title: 'Safety and Security',
     description: 'We maintain rigorous standards for fleet mechanics, route risk management, and cargo stowage.',
   },
   {
+    id: 'integrity',
     title: 'Integrity',
     description: 'We operate with transparent pricing, honest reporting, and zero tolerance for non-compliance.',
   },
   {
+    id: 'accountability',
     title: 'Accountability',
     description: 'Every consignment, vehicle dispatch, and customs dossier has a designated operational owner.',
   },
   {
+    id: 'efficiency',
     title: 'Efficiency',
     description: 'We eliminate procedural friction and port delays to deliver lowest total operational cost.',
   },
   {
+    id: 'client-focus',
     title: 'Client Focus',
     description: 'We adapt fleet configurations and supply solutions to the exact operational needs of donor projects.',
   },
   {
+    id: 'local-knowledge',
     title: 'Local Knowledge',
     description: 'Our ground teams bring deep familiarity with terrain, authorities, and corridor realities.',
   },
   {
+    id: 'continuous-improvement',
     title: 'Continuous Improvement',
     description: 'We regularly upgrade our fleet safety protocols, facility standards, and team skills.',
   },
@@ -389,16 +415,14 @@ export const HOME_METRICS = [
     detail: null,
   },
   {
-    value: "100%",
-    label: "Corridor Coverage",
+    value: "Key",
+    label: "Corridor Reach",
     detail: "Hargeisa, Berbera Port, Burao, Sanaag, Somalia",
-    note: "Design claim beyond the company profile — confirm before launch.",
   },
   {
-    value: "24/7",
+    value: "Field",
     label: "Dispatch Support",
-    detail: null,
-    note: "Design claim for NGO emergency line — confirm before launch.",
+    detail: "Dedicated coordinator for contracted missions",
   },
 ] as const;
 
