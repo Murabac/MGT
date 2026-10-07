@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-page: #ffffff;
+  --color-surface: #f3f7fb;
+  --color-ink: #122033;
+  --color-muted: #526178;
+  --color-line: #d7e2ee;
+  --color-blue: #1776e9;
+  --color-deep-blue: #0b4cad;
+  --color-green: #1e9c34;
+  --color-yellow: #fede02;
+}
+
+body {
+  color: var(--color-ink);
+  background-color: var(--color-page);
+  line-height: 1.5;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-blue) !important;
+  outline-offset: 2px !important;
+  box-shadow: none !important;
+}

@@ -1,0 +1,375 @@
+{
+  "meta": {
+    "source": "Company Profile Book, 2026 edition, plus the MGT letterhead.",
+    "purpose": "Public website copy and structured content. This file is the source of truth for pages.",
+    "doNotPublish": [
+      "Bank account numbers, IBANs, and SWIFT details from the profile",
+      "Contract prices, purchase-order amounts, and vehicle daily rates",
+      "Scanned contracts, signatures, and plate numbers",
+      "Personal phone numbers and emails of client staff"
+    ]
+  },
+  "company": {
+    "brand": "MGT Group",
+    "legalName": "Maandeeq Global Transportation Ltd.",
+    "shortName": "Maandeeq Global Transportation",
+    "established": 2023,
+    "headquarters": {
+      "street": "150 Street",
+      "district": "Kodbuur",
+      "city": "Hargeisa",
+      "country": "Somaliland"
+    },
+    "website": "https://www.mgtgroup.com",
+    "tagline": "MGT is your strongest service provider",
+    "summary": "Maandeeq Global Transportation is a Hargeisa logistics company, established in 2023. It moves people and cargo across Somaliland and Somalia, and supports NGOs, UN agencies, and public projects with transport, freight, customs, procurement, and warehousing."
+  },
+  "positioning": {
+    "audience": [
+      "International and local NGOs",
+      "United Nations agencies",
+      "Government and donor-funded projects",
+      "Organizations that need vehicles, trucks, or cargo moved inside Somaliland and Somalia"
+    ],
+    "offer": "Third-party logistics. MGT sits between the organization that needs something moved or supplied and the vehicles, warehouses, and clearances that get it done.",
+    "proof": "Named work with VSF Suisse, Zamzam Foundation, Plan International, the World Food Programme, Welthungerhilfe, UNSOM, One Earth Future, Cheetah Conservation Fund, and the Ministry of Agricultural Development on the World Bank Barwaaqo project."
+  },
+  "leadership": {
+    "generalManager": {
+      "name": "Mohamed Omar Farah",
+      "title": "General Manager",
+      "note": "Name as printed under the message in the 2026 profile. Confirm before launch. A text extract of the same page also surfaced a different name."
+    },
+    "operationsManager": {
+      "name": "Abdiwahaab Adan Ali",
+      "title": "Operations Manager",
+      "note": "Named on contracts included in the profile. The public org chart lists the role, not the person."
+    }
+  },
+  "messageFromGeneralManager": {
+    "heading": "Message from the General Manager",
+    "signOff": "Yours sincerely",
+    "paragraphs": [
+      "I am grateful for your continued trust in Maandeeq Global Transportation. That trust is what pushes us to do the work properly.",
+      "We use practical experience and the tools we have to deliver logistics across Somaliland: transport, freight, clearance, and supply. The aim is to make a difficult supply chain something you can rely on.",
+      "The work ahead will be shaped by better information, safer operations, and services that stay dependable as the market changes. We intend to keep our methods current so the service stays sharp.",
+      "Choosing Maandeeq Global Transportation means a partner that is available when the cargo, the vehicle, or the paperwork cannot wait. We will keep improving how the work is planned and delivered.",
+      "Thank you for the confidence you have placed in us. We will keep our word, and we look forward to the work ahead."
+    ]
+  },
+  "about": {
+    "heading": "About us",
+    "paragraphs": [
+      "Maandeeq Global Transportation was established in 2023 in Hargeisa. The company provides light and heavy transport, freight forwarding, customs clearance, procurement, supply-chain support, and tax-exemption processing for non-governmental organizations in Somaliland.",
+      "As a third-party logistics provider, MGT connects the organization that needs the service with the vehicles, warehouses, and clearances that complete it. The work takes planning and time. The standard is that goods are handled with care, wherever they are.",
+      "The team has field experience moving cargo to destinations across the region, buying for international NGOs and UN agencies, running freight and customs for local and transit cargo, and processing tax exemptions. The approach is practical logistics, tied to how the client needs the job finished."
+    ]
+  },
+  "vision": "To be a logistics company that raises the standard of transport and supply in this market, through sound partnerships and services that match how clients actually work.",
+  "mission": [
+    "Deliver reliable, cost-efficient services that leave clients with a good experience.",
+    "Use local experience to keep a working operation, and to support the people who run it."
+  ],
+  "values": [
+    {
+      "title": "Integrity",
+      "text": "Honor commitments to customers, employees, and clients. Do the work honestly."
+    },
+    {
+      "title": "Quality",
+      "text": "Put the client’s interest first and deliver the job they actually asked for."
+    },
+    {
+      "title": "Teamwork",
+      "text": "Work as one team, from the field unit to management, so the job gets finished."
+    },
+    {
+      "title": "Sustainability",
+      "text": "Run logistics in a way that limits harm and takes the community into account."
+    },
+    {
+      "title": "Innovation",
+      "text": "Keep up with how clients’ needs change, and adjust the service."
+    },
+    {
+      "title": "Compliance and safety",
+      "text": "Follow local and international rules, and put safety ahead of shortcuts."
+    },
+    {
+      "title": "People",
+      "text": "Train the team so they can deliver the work and carry the company."
+    },
+    {
+      "title": "Customer satisfaction",
+      "text": "Meet the specific requirement, on time, at a fair cost."
+    }
+  ],
+  "waysOfWorking": "Each division works as its own team and shares the job with the others. Clients are treated as partners. Management sits with the client, agrees what is needed, and stays on it until the work is delivered.",
+  "organization": {
+    "heading": "How the company is organized",
+    "chart": [
+      {
+        "role": "General Director",
+        "reportsTo": null
+      },
+      {
+        "role": "Deputy Director",
+        "reportsTo": "General Director"
+      },
+      {
+        "role": "Human Resource Manager",
+        "reportsTo": "Deputy Director"
+      },
+      {
+        "role": "Operational Manager",
+        "reportsTo": "Deputy Director"
+      },
+      {
+        "role": "Freight forwarding and warehouse",
+        "reportsTo": "Deputy Director"
+      },
+      {
+        "role": "Car rental",
+        "reportsTo": "Deputy Director"
+      },
+      {
+        "role": "Travel and tourist services",
+        "reportsTo": "Deputy Director"
+      }
+    ]
+  },
+  "services": [
+    {
+      "id": "vehicle-leasing",
+      "title": "Vehicle leasing and light transport",
+      "summary": "Staff vehicles and passenger transport for organizations working across Somaliland.",
+      "details": "Light vehicles include 4x4 Surf, Prado, and Toyota Hilux, plus passenger vans, mini buses, and 30-seater buses. Toyota Land Cruisers are hired to INGOs and UN teams for travel to all Somaliland regions. Clients for this work include VSF Suisse, Zamzam Foundation, and the Ministry of Agricultural Development on the Barwaaqo project.",
+      "fleet": [
+        "4x4 Surf",
+        "Toyota Prado",
+        "Toyota Hilux",
+        "Toyota Land Cruiser",
+        "Passenger van",
+        "Mini bus",
+        "30-seater bus"
+      ]
+    },
+    {
+      "id": "heavy-transport",
+      "title": "Trucks and heavy transport",
+      "summary": "Truck transport for cargo that light vehicles cannot carry.",
+      "details": "MGT handles small and medium heavy-transport jobs across Somaliland and delivers cargo to the destination the client names.",
+      "fleet": [
+        "24-truck rental",
+        "12-tonne rental",
+        "Lorry rental"
+      ]
+    },
+    {
+      "id": "road-freight",
+      "title": "Road freight forwarding",
+      "summary": "Overland freight to Somaliland and Somalia, with security and a set delivery time.",
+      "details": "Goods are sent to regions across Somaliland and Somalia. Loading, unloading, and stowage follow the type of cargo. The team knows which goods need special handling."
+    },
+    {
+      "id": "sea-and-air",
+      "title": "Sea and air freight",
+      "summary": "Freight beyond the road network, using partner agents for urgent cargo.",
+      "details": "Sea freight is available when a shipment should travel by ocean. Urgent cargo can move by air through an associate network, aimed at a shorter delivery.",
+      "needsConfirmation": true
+    },
+    {
+      "id": "procurement",
+      "title": "Procurement",
+      "summary": "Food, non-food items, and hygiene materials, bought and supplied against a real requirement.",
+      "details": "MGT supplies food and non-food items and looks for a lower total cost, not only a low unit price. The service depends on knowing what the buyer needs, what the market can provide, and which suppliers can deliver.",
+      "items": [
+        "Food items",
+        "Non-food items",
+        "Hygiene materials"
+      ]
+    },
+    {
+      "id": "customs",
+      "title": "Customs clearance",
+      "summary": "Clearance for cargo entering Somaliland by air, sea, or road.",
+      "details": "A dedicated clearance team prepares the paperwork and moves cargo through the entry point. The work is done so the client can see the status of the shipment."
+    },
+    {
+      "id": "tax-exemption",
+      "title": "Tax exemption processing",
+      "summary": "Tax-exemption files for international NGOs and UN organizations in Somaliland.",
+      "details": "The team works the compliance steps and deals with the relevant ministries and customs units. The service is for organizations that are entitled to exemption and need the file processed correctly."
+    },
+    {
+      "id": "disinfection",
+      "title": "Disinfection",
+      "summary": "Treatment of premises and goods against infectious bacteria, viruses, and malaria risk.",
+      "details": "A dedicated team carries out disinfection for organizations that need premises or cargo treated before use."
+    },
+    {
+      "id": "fumigation",
+      "title": "Fumigation and pest control",
+      "summary": "Fumigation, pest control, packing, and crating, including treatment of stored cargo.",
+      "details": "Offered with warehousing and as a standalone service for cargo that must be treated before it is stored or moved."
+    },
+    {
+      "id": "property",
+      "title": "Property and site support",
+      "summary": "Moving materials between sites, and day-to-day site maintenance.",
+      "details": "Support for organizations that need goods shifted to another compound and light maintenance while a site is in use."
+    },
+    {
+      "id": "warehouse",
+      "title": "Warehouse management",
+      "summary": "Short- and long-term storage at key points in the region.",
+      "details": "Warehouses are secured with electronic theft and fire alarms and round-the-clock guards. Hygiene checks can be certified by specialist companies. Goods stay protected for as long as the client needs, then move on by road or another mode.",
+      "includes": [
+        "Short- and long-term storage",
+        "Loading and unloading",
+        "Labeling and packing",
+        "Fumigation and pest control",
+        "Packing and crating"
+      ]
+    },
+    {
+      "id": "travel",
+      "title": "Travel services",
+      "summary": "Travel support, listed as its own unit beside car rental and freight.",
+      "details": "A travel unit sits beside car rental and freight, for organizations that need people moved as well as cargo.",
+      "needsConfirmation": true
+    }
+  ],
+  "clients": [
+    {
+      "name": "Vétérinaires Sans Frontières Suisse",
+      "shortName": "VSF Suisse",
+      "relationship": "Vehicle rental"
+    },
+    {
+      "name": "Plan International",
+      "shortName": "Plan International",
+      "relationship": "Motor-vehicle hire framework, Somaliland and Somalia"
+    },
+    {
+      "name": "Zamzam Foundation",
+      "shortName": "Zamzam Foundation",
+      "relationship": "Vehicle rental"
+    },
+    {
+      "name": "United Nations Assistance Mission in Somalia",
+      "shortName": "UNSOM",
+      "relationship": "Listed client"
+    },
+    {
+      "name": "World Food Programme",
+      "shortName": "WFP",
+      "relationship": "Procurement and delivery of supplies"
+    },
+    {
+      "name": "Welthungerhilfe",
+      "shortName": "WHH",
+      "relationship": "Distribution of hygiene kits and tools in the Sanaag region"
+    },
+    {
+      "name": "One Earth Future",
+      "shortName": "One Earth Future",
+      "relationship": "Listed client"
+    },
+    {
+      "name": "Cheetah Conservation Fund",
+      "shortName": "CCF",
+      "relationship": "Vehicle rental for field work in Maroodi Jeex"
+    },
+    {
+      "name": "Ministry of Agricultural Development, Somaliland",
+      "shortName": "Ministry of Agricultural Development",
+      "relationship": "Transport for the World Bank Barwaaqo project. The ministry issued a recommendation letter for the service."
+    }
+  ],
+  "testimonial": {
+    "quote": "Throughout our collaboration, your company has demonstrated a high level of professionalism, reliability, and efficiency in meeting our logistical needs.",
+    "attribution": "Eng. Abdirisak Ahmed Gas, Director General, Ministry of Agricultural Development",
+    "context": "Recommendation letter for transport on the World Bank Barwaaqo project."
+  },
+  "contact": {
+    "email": "maandeeqGlobalTransportation@gmail.com",
+    "emailNote": "The profile back cover prints the same address with Transportation misspelled. Use the letterhead spelling.",
+    "alternateEmail": "maandeeqGlobalTransportation1@gmail.com",
+    "alternateEmailNote": "Appears on one project contract. Confirm whether the public site should show it.",
+    "phones": [
+      "0634848748",
+      "0654848748",
+      "0634418722",
+      "0654418722",
+      "0637526666",
+      "0634108850",
+      "0654108850"
+    ],
+    "phoneNote": "Combined from the letterhead and the profile back cover. The services banner also lists 0657526666, which is not on the letterhead or the back cover. Confirm the public list before launch.",
+    "address": "150 Street, Kodbuur District, Hargeisa, Somaliland",
+    "website": "https://www.mgtgroup.com"
+  },
+  "colors": {
+    "page": "#FFFFFF",
+    "surface": "#F3F7FB",
+    "ink": "#122033",
+    "muted": "#526178",
+    "line": "#D7E2EE",
+    "blue": "#1776E9",
+    "blueDeep": "#0B4CAD",
+    "green": "#1E9C34",
+    "yellow": "#FEDE02",
+    "usage": {
+      "page": "Page background. The profile is white, and the site stays white.",
+      "surface": "Cards, service tiles, and the band behind the client list.",
+      "ink": "Headings and body text. The logo blue is too bright for paragraphs.",
+      "muted": "Secondary lines, captions, and form hints.",
+      "line": "Hairline borders and dividers.",
+      "blue": "Links, the main button, and the blue half of the header bar. Sampled from the logo.",
+      "blueDeep": "Hero, footer, and any place white text sits on blue.",
+      "green": "The thin bar beside section titles, icons, and the swoosh. Not for body text.",
+      "yellow": "The Maandeeq wordmark and small labels on blue. Never yellow text on white."
+    }
+  },
+  "site": {
+    "language": "en",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "MGT Group",
+        "nav": "Home",
+        "sections": ["hero", "services", "clients", "message", "contact"]
+      },
+      {
+        "id": "about",
+        "path": "/about",
+        "title": "About",
+        "nav": "About",
+        "sections": ["story", "vision", "values", "organization", "leadership"]
+      },
+      {
+        "id": "services",
+        "path": "/services",
+        "title": "Services",
+        "nav": "Services",
+        "sections": ["service-list"]
+      },
+      {
+        "id": "clients",
+        "path": "/clients",
+        "title": "Clients",
+        "nav": "Clients",
+        "sections": ["client-list", "testimonial"]
+      },
+      {
+        "id": "contact",
+        "path": "/contact",
+        "title": "Contact",
+        "nav": "Contact",
+        "sections": ["details", "enquiry-form"]
+      }
+    ]
+  }
+}

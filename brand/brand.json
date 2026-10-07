@@ -1,0 +1,30 @@
+{
+  "name": "MGT Group",
+  "legalName": "Maandeeq Global Transportation Ltd.",
+  "colors": {
+    "blue": "#1776E9",
+    "blueDeep": "#0B4CAD",
+    "green": "#1E9C34",
+    "yellow": "#FEDE02",
+    "ink": "#122033",
+    "white": "#FFFFFF",
+    "surface": "#F3F7FB"
+  },
+  "contact": {
+    "phones": [
+      "0637526666",
+      "0634418722",
+      "0654418722",
+      "0657526666"
+    ]
+  },
+  "usage": {
+    "headerOnBlue": "lockup/logo-horizontal.png",
+    "headerOnWhite": "lockup/logo-horizontal-on-light.png",
+    "mark": "logo/mgt-mark.png",
+    "markOnWhite": "logo/mgt-mark-on-light.png",
+    "favicon": "icons/favicon.ico",
+    "appleTouchIcon": "icons/apple-touch-icon.png",
+    "ogImage": "lockup/og-image.png"
+  }
+}

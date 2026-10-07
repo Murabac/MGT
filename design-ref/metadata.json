@@ -1,0 +1,6 @@
+{
+  "name": "MGT Group — Logistics & Fleet Design System",
+  "description": "Public marketing website and design system specification for Maandeeq Global Transportation Ltd. (MGT Group), Hargeisa, Somaliland.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
