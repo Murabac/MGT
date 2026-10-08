@@ -1,27 +1,30 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useMemo } from "react";
 import { PageHero } from "@/components/PageHero";
-import {
-  COMPANY_INFO,
-  COMPANY_STORY_PARAGRAPHS,
-  GM_FULL_MESSAGE,
-  VALUES,
-  VISION_MISSION,
-} from "@/content/site";
+import { useLocale } from "@/components/LocaleProvider";
+import { localizedHref } from "@/content/i18n";
+import { COMPANY_INFO, GM_META, getValues } from "@/content/site";
 import { siteImages, valueImages } from "@/lib/assets";
 import { telHref } from "@/lib/phone";
 
 export function AboutPage() {
+  const { locale, messages } = useLocale();
+  const values = useMemo(() => getValues(locale), [locale]);
+  const urgentPhone = COMPANY_INFO.phones[0];
+
   return (
     <main id="main" className="w-full bg-page text-ink">
       <PageHero
-        eyebrow="About MGT Group"
-        title="Institutional logistics from Hargeisa."
-        description={COMPANY_INFO.whatTheySell}
+        eyebrow={messages.about.eyebrow}
+        title={messages.about.title}
+        description={messages.common.whatTheySell}
         meta={
           <>
             <span className="font-bold text-white">
-              Established {COMPANY_INFO.established}
+              {messages.home.establishedLabel} {COMPANY_INFO.established}
             </span>
             <span className="text-[#1b5ec2]">·</span>
             <span>{COMPANY_INFO.office}</span>
@@ -34,13 +37,13 @@ export function AboutPage() {
           <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-14">
             <div className="space-y-5 lg:col-span-7">
               <span className="font-condensed text-xs font-bold uppercase tracking-widest text-green">
-                Our Story
+                {messages.about.storyEyebrow}
               </span>
               <h2 className="text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
-                Built for field programs that cannot wait.
+                {messages.about.storyTitle}
               </h2>
               <div className="space-y-4 text-sm leading-relaxed text-muted sm:text-base">
-                {COMPANY_STORY_PARAGRAPHS.map((paragraph) => (
+                {messages.about.storyParagraphs.map((paragraph) => (
                   <p key={paragraph.slice(0, 40)}>{paragraph}</p>
                 ))}
               </div>
@@ -59,11 +62,10 @@ export function AboutPage() {
                 </div>
                 <div className="space-y-1 border-t border-line p-4">
                   <p className="text-xs font-bold uppercase tracking-wider text-blue">
-                    Field operations
+                    {messages.about.fieldOpsLabel}
                   </p>
                   <p className="text-xs leading-relaxed text-muted">
-                    Fleet, freight, customs, and storage coordinated from Kodbuur
-                    District for UN, INGO, and public programs.
+                    {messages.about.fieldOpsBody}
                   </p>
                 </div>
               </div>
@@ -77,18 +79,18 @@ export function AboutPage() {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="rounded-brand bg-deep px-5 py-6 text-white sm:px-6 sm:py-7">
               <span className="font-condensed text-xs font-bold uppercase tracking-widest text-yellow">
-                Vision
+                {messages.about.vision}
               </span>
               <p className="mt-2 text-sm leading-relaxed text-white/90 sm:text-base">
-                {VISION_MISSION.vision}
+                {messages.about.visionBody}
               </p>
             </div>
             <div className="rounded-brand bg-green px-5 py-6 text-white sm:px-6 sm:py-7">
               <span className="font-condensed text-xs font-bold uppercase tracking-widest text-yellow">
-                Mission
+                {messages.about.mission}
               </span>
               <p className="mt-2 text-sm leading-relaxed text-white/90 sm:text-base">
-                {VISION_MISSION.mission}
+                {messages.about.missionBody}
               </p>
             </div>
           </div>
@@ -99,15 +101,15 @@ export function AboutPage() {
         <div className="mx-auto max-w-page px-4 sm:px-6">
           <div className="mb-8 max-w-2xl">
             <span className="font-condensed text-xs font-bold uppercase tracking-widest text-green">
-              Operating Principles
+              {messages.about.valuesEyebrow}
             </span>
             <h2 className="mt-1 text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
-              Values that guide every dispatch
+              {messages.about.valuesTitle}
             </h2>
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {VALUES.map((value, index) => {
+            {values.map((value, index) => {
               const image = valueImages[value.id];
               return (
                 <article
@@ -156,11 +158,9 @@ export function AboutPage() {
                   />
                 </div>
                 <div className="space-y-0.5 border-t border-line bg-page p-4">
-                  <p className="text-sm font-bold text-ink">
-                    {COMPANY_INFO.generalManager}
-                  </p>
+                  <p className="text-sm font-bold text-ink">{GM_META.author}</p>
                   <p className="text-xs font-semibold text-blue">
-                    General Manager
+                    {messages.about.gmRole}
                   </p>
                   <p className="pt-1 text-[11px] text-muted">
                     {COMPANY_INFO.legalName}
@@ -172,14 +172,14 @@ export function AboutPage() {
             <div className="space-y-5 lg:col-span-8">
               <div>
                 <span className="font-condensed text-xs font-bold uppercase tracking-widest text-green">
-                  Executive Message
+                  {messages.about.gmEyebrow}
                 </span>
                 <h2 className="mt-1 text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
-                  From the General Manager
+                  {messages.about.gmTitle}
                 </h2>
               </div>
               <div className="space-y-4 text-sm leading-relaxed text-muted sm:text-base">
-                {GM_FULL_MESSAGE.map((paragraph) => (
+                {messages.about.gmParagraphs.map((paragraph) => (
                   <p key={paragraph.slice(0, 48)}>{paragraph}</p>
                 ))}
               </div>
@@ -193,18 +193,18 @@ export function AboutPage() {
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div className="space-y-2">
               <span className="font-condensed text-xs font-bold uppercase tracking-widest text-yellow">
-                Work with MGT
+                {messages.common.workWithMgt}
               </span>
               <h2 className="text-xl font-bold text-white sm:text-2xl">
-                Ready to discuss a field logistics requirement?
+                {messages.about.ctaTitle}
               </h2>
               <p className="text-xs text-white/80 sm:text-sm">
-                Dispatch:{" "}
+                {messages.services.dispatchDesk}{" "}
                 <a
-                  href={telHref(COMPANY_INFO.phones[0])}
+                  href={telHref(urgentPhone)}
                   className="font-mono font-bold text-white hover:text-yellow"
                 >
-                  {COMPANY_INFO.phones[0]}
+                  {urgentPhone}
                 </a>
                 {" · "}
                 {COMPANY_INFO.office}
@@ -212,16 +212,16 @@ export function AboutPage() {
             </div>
             <div className="flex flex-wrap gap-3">
               <Link
-                href="/services"
+                href={localizedHref(locale, "/services")}
                 className="rounded-brand border border-white/35 bg-transparent px-5 py-3 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:border-white hover:bg-white/10"
               >
-                View services
+                {messages.common.viewServices}
               </Link>
               <Link
-                href="/contact"
+                href={localizedHref(locale, "/contact")}
                 className="rounded-brand bg-white px-6 py-3 text-xs font-bold uppercase tracking-wider text-green transition-colors hover:bg-yellow hover:text-ink"
               >
-                Send enquiry
+                {messages.common.sendEnquiry}
               </Link>
             </div>
           </div>

@@ -1,20 +1,25 @@
+"use client";
+
+import { useLocale } from "@/components/LocaleProvider";
 import { COMPANY_INFO } from "@/content/site";
 import { whatsappHref } from "@/lib/phone";
 
-const DEFAULT_MESSAGE =
-  "Hello MGT Group, I would like to enquire about your logistics services.";
-
 export function FloatingWhatsApp() {
+  const { messages } = useLocale();
   const phone = COMPANY_INFO.phones[0];
-  const href = whatsappHref(phone, DEFAULT_MESSAGE);
+  const defaultMessage =
+    messages.contact.directPrefill.trim() ||
+    messages.home.whatsappPrefill.split("\n")[0] ||
+    "Hello MGT Group,";
+  const href = whatsappHref(phone, defaultMessage);
 
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Chat with MGT on WhatsApp"
-      className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-105 hover:bg-[#1ebe57] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366] sm:bottom-6 sm:right-6"
+      aria-label={messages.contact.openWhatsApp}
+      className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-105 hover:bg-[#1ebe57] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366]"
     >
       <svg
         viewBox="0 0 24 24"

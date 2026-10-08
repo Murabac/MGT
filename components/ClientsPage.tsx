@@ -1,22 +1,31 @@
+"use client";
+
 import Link from "next/link";
+import { useMemo } from "react";
 import { PageHero } from "@/components/PageHero";
-import { CLIENTS, COMPANY_INFO, TESTIMONIAL } from "@/content/site";
+import { useLocale } from "@/components/LocaleProvider";
+import { localizedHref } from "@/content/i18n";
+import { COMPANY_INFO, TESTIMONIAL_META, getClients } from "@/content/site";
 import { telHref } from "@/lib/phone";
 
 export function ClientsPage() {
+  const { locale, messages } = useLocale();
+  const clients = useMemo(() => getClients(locale), [locale]);
+  const urgentPhone = COMPANY_INFO.phones[0];
+
   return (
     <main id="main" className="w-full bg-page text-ink">
       <PageHero
-        eyebrow="Institutional Partners"
-        title="Trusted by UN agencies, INGOs, and public institutions."
-        description="Verified third-party logistics support across Somaliland and Somalia — fleet, freight, procurement, and field dispatch for programs that require accountability."
+        eyebrow={messages.clients.eyebrow}
+        title={messages.clients.title}
+        description={messages.clients.description}
         meta={
           <>
             <span className="font-bold text-white">
-              {CLIENTS.length}+ partner organizations
+              {clients.length}+ {messages.clients.metaPartners}
             </span>
             <span className="text-[#1b5ec2]">·</span>
-            <span>Hargeisa operations hub</span>
+            <span>{messages.clients.metaHub}</span>
           </>
         }
       />
@@ -25,19 +34,18 @@ export function ClientsPage() {
         <div className="mx-auto max-w-page px-4 sm:px-6">
           <div className="mb-8 max-w-2xl">
             <span className="font-condensed text-xs font-bold uppercase tracking-widest text-green">
-              Proven Track Record
+              {messages.clients.listEyebrow}
             </span>
             <h2 className="mt-1 text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
-              Organizations we support
+              {messages.clients.listTitle}
             </h2>
             <p className="mt-1.5 text-sm text-muted">
-              Partner logos and the operational scope delivered under each
-              engagement.
+              {messages.clients.listIntro}
             </p>
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {CLIENTS.map((client) => (
+            {clients.map((client) => (
               <article
                 key={client.name}
                 className="flex flex-col justify-between rounded-brand border border-line bg-page p-5 transition-colors hover:border-blue/50"
@@ -65,7 +73,7 @@ export function ClientsPage() {
                 </div>
                 <div className="mt-4 border-t border-line pt-3">
                   <p className="text-[10px] font-bold uppercase tracking-wider text-blue">
-                    Scope of work
+                    {messages.common.scopeOfWork}
                   </p>
                   <p className="mt-1 text-xs leading-relaxed text-muted">
                     {client.workDone}
@@ -83,23 +91,24 @@ export function ClientsPage() {
             <div className="inline-flex items-center gap-2">
               <span className="h-2.5 w-2.5 bg-yellow" aria-hidden="true" />
               <span className="font-condensed text-xs font-bold uppercase tracking-widest text-yellow">
-                Official Institutional Recommendation
+                {messages.clients.testimonialEyebrow}
               </span>
             </div>
 
             <blockquote className="text-xl font-bold leading-relaxed tracking-tight text-white sm:text-2xl md:text-3xl">
-              “{TESTIMONIAL.quote}”
+              “{messages.testimonial.quote}”
             </blockquote>
 
             <div className="border-t border-[#1b5ec2]/60 pt-4">
               <cite className="block text-base font-bold not-italic text-white sm:text-lg">
-                {TESTIMONIAL.attribution}
+                {TESTIMONIAL_META.attribution}
               </cite>
               <span className="mt-0.5 block text-sm font-semibold text-yellow">
-                {TESTIMONIAL.role}, {TESTIMONIAL.organization}
+                {messages.testimonial.role}, {TESTIMONIAL_META.organization}
               </span>
               <span className="mt-1 block text-xs text-line">
-                Context: {TESTIMONIAL.context}
+                {messages.clients.testimonialContext}{" "}
+                {messages.testimonial.context}
               </span>
             </div>
           </div>
@@ -111,18 +120,18 @@ export function ClientsPage() {
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div className="space-y-2">
               <span className="font-condensed text-xs font-bold uppercase tracking-widest text-yellow">
-                Work with MGT
+                {messages.common.workWithMgt}
               </span>
               <h2 className="text-xl font-bold text-white sm:text-2xl">
-                Looking for a dependable field logistics partner?
+                {messages.clients.ctaTitle}
               </h2>
               <p className="text-xs text-white/80 sm:text-sm">
-                Dispatch:{" "}
+                {messages.services.dispatchDesk}{" "}
                 <a
-                  href={telHref(COMPANY_INFO.phones[0])}
+                  href={telHref(urgentPhone)}
                   className="font-mono font-bold text-white hover:text-yellow"
                 >
-                  {COMPANY_INFO.phones[0]}
+                  {urgentPhone}
                 </a>
                 {" · "}
                 {COMPANY_INFO.office}
@@ -130,16 +139,16 @@ export function ClientsPage() {
             </div>
             <div className="flex flex-wrap gap-3">
               <Link
-                href="/services"
+                href={localizedHref(locale, "/services")}
                 className="rounded-brand border border-white/35 bg-transparent px-5 py-3 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:border-white hover:bg-white/10"
               >
-                View services
+                {messages.common.viewServices}
               </Link>
               <Link
-                href="/contact"
+                href={localizedHref(locale, "/contact")}
                 className="rounded-brand bg-white px-6 py-3 text-xs font-bold uppercase tracking-wider text-green transition-colors hover:bg-yellow hover:text-ink"
               >
-                Send enquiry
+                {messages.common.sendEnquiry}
               </Link>
             </div>
           </div>

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Barlow_Semi_Condensed, Plus_Jakarta_Sans } from "next/font/google";
-import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
-import { SubtleParticles } from "@/components/SubtleParticles";
+import {
+  Barlow_Semi_Condensed,
+  Noto_Sans_Arabic,
+  Plus_Jakarta_Sans,
+} from "next/font/google";
 import { brandAssets } from "@/lib/assets";
 import "./globals.css";
 
@@ -18,6 +18,13 @@ const condensed = Barlow_Semi_Condensed({
   subsets: ["latin"],
   weight: ["600", "700"],
   variable: "--font-condensed",
+  display: "swap",
+});
+
+const arabic = Noto_Sans_Arabic({
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-arabic",
   display: "swap",
 });
 
@@ -47,22 +54,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${sans.variable} ${condensed.variable}`}>
+    <html
+      lang="en"
+      dir="ltr"
+      className={`${sans.variable} ${condensed.variable} ${arabic.variable}`}
+      suppressHydrationWarning
+    >
       <body
         className="flex min-h-screen flex-col bg-page font-sans text-ink antialiased"
         suppressHydrationWarning
       >
-        <a
-          href="#main"
-          className="sr-only rounded-brand bg-blue px-4 py-2 text-xs font-bold uppercase tracking-wider text-white focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50"
-        >
-          Skip to content
-        </a>
-        <Header />
-        <div className="flex-1">{children}</div>
-        <Footer />
-        <SubtleParticles />
-        <FloatingWhatsApp />
+        {children}
       </body>
     </html>
   );

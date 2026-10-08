@@ -4,10 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { PageHero } from "@/components/PageHero";
+import { useLocale } from "@/components/LocaleProvider";
+import { localizedHref } from "@/content/i18n";
 import {
   COMPANY_INFO,
-  SERVICE_CATEGORIES,
-  SERVICES,
+  getServiceCategories,
+  getServices,
   servicesInCategory,
 } from "@/content/site";
 import type { ServiceCategoryId } from "@/content/types";
@@ -15,38 +17,46 @@ import { serviceImages } from "@/lib/assets";
 import { telHref } from "@/lib/phone";
 
 export function ServicesPage() {
+  const { locale, messages } = useLocale();
+  const services = useMemo(() => getServices(locale), [locale]);
+  const serviceCategories = useMemo(
+    () => getServiceCategories(locale),
+    [locale],
+  );
+  const urgentPhone = COMPANY_INFO.phones[0];
+
   const [activeCategory, setActiveCategory] =
     useState<ServiceCategoryId>("all");
 
   const filteredServices = useMemo(
-    () => servicesInCategory(activeCategory),
-    [activeCategory],
+    () => servicesInCategory(locale, activeCategory),
+    [locale, activeCategory],
   );
 
   return (
     <main id="main" className="w-full bg-page text-ink">
       <PageHero
-        eyebrow="Logistics & Transport Services"
-        title="Twelve capabilities for field programs."
-        description="Vehicle leasing, heavy haulage, freight, customs, procurement, warehousing, and travel support — coordinated from Hargeisa for UN agencies, INGOs, and public institutions."
+        eyebrow={messages.services.eyebrow}
+        title={messages.services.title}
+        description={messages.services.description}
         meta={
           <>
             <span className="font-bold text-white">
-              {SERVICES.length} specialized services
+              {services.length} {messages.services.metaServices}
             </span>
             <span className="text-[#1b5ec2]">·</span>
-            <span>Somaliland & Somalia corridors</span>
+            <span>{messages.services.metaCorridors}</span>
           </>
         }
       />
 
       <section className="sticky top-[96px] z-20 border-b border-line bg-page/95 backdrop-blur-sm">
         <div className="mx-auto flex max-w-page flex-wrap items-center gap-1.5 px-4 py-3 sm:px-6">
-          {SERVICE_CATEGORIES.map((category) => {
+          {serviceCategories.map((category) => {
             const active = activeCategory === category.id;
             const label =
               category.id === "all"
-                ? `All (${SERVICES.length})`
+                ? `${messages.categories.all} (${services.length})`
                 : category.label;
             return (
               <button
@@ -108,8 +118,8 @@ export function ServicesPage() {
                         <div className="border-t border-line pt-3">
                           <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-ink">
                             {service.id === "procurement"
-                              ? "Categories"
-                              : "Available fleet / items"}
+                              ? messages.common.categories
+                              : messages.common.availableFleet}
                           </p>
                           <div className="flex flex-wrap gap-1.5">
                             {service.fleetOrItems.map((item) => (
@@ -127,7 +137,7 @@ export function ServicesPage() {
                       {service.fieldNote ? (
                         <p className="border-l-2 border-green pl-3 text-xs leading-relaxed text-muted">
                           <span className="font-bold text-green">
-                            Field note:{" "}
+                            {messages.common.fieldNote}{" "}
                           </span>
                           {service.fieldNote}
                         </p>
@@ -136,16 +146,19 @@ export function ServicesPage() {
 
                     <div className="flex flex-wrap items-center gap-3 border-t border-line pt-4">
                       <Link
-                        href={`/contact?service=${encodeURIComponent(service.title)}`}
+                        href={localizedHref(
+                          locale,
+                          `/contact?service=${encodeURIComponent(service.title)}`,
+                        )}
                         className="rounded-brand bg-blue px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-deep"
                       >
-                        Request this service
+                        {messages.common.requestThisService}
                       </Link>
                       <a
-                        href={telHref(COMPANY_INFO.phones[0])}
+                        href={telHref(urgentPhone)}
                         className="text-xs font-bold text-ink hover:text-blue"
                       >
-                        Call {COMPANY_INFO.phones[0]}
+                        {messages.common.call} {urgentPhone}
                       </a>
                     </div>
                   </div>
@@ -161,33 +174,33 @@ export function ServicesPage() {
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div className="space-y-2">
               <span className="font-condensed text-xs font-bold uppercase tracking-widest text-yellow">
-                Need a custom package?
+                {messages.services.ctaEyebrow}
               </span>
               <h2 className="text-xl font-bold text-white sm:text-2xl">
-                Tell us the corridor, cargo, and timeline.
+                {messages.services.ctaTitle}
               </h2>
               <p className="text-xs text-white/80 sm:text-sm">
-                Dispatch desk:{" "}
+                {messages.services.dispatchDesk}{" "}
                 <a
-                  href={telHref(COMPANY_INFO.phones[0])}
+                  href={telHref(urgentPhone)}
                   className="font-mono font-bold text-white hover:text-yellow"
                 >
-                  {COMPANY_INFO.phones[0]}
+                  {urgentPhone}
                 </a>
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
               <Link
-                href="/clients"
+                href={localizedHref(locale, "/clients")}
                 className="rounded-brand border border-white/35 bg-transparent px-5 py-3 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:border-white hover:bg-white/10"
               >
-                See partners
+                {messages.common.seePartners}
               </Link>
               <Link
-                href="/contact"
+                href={localizedHref(locale, "/contact")}
                 className="rounded-brand bg-white px-6 py-3 text-xs font-bold uppercase tracking-wider text-green transition-colors hover:bg-yellow hover:text-ink"
               >
-                Send enquiry
+                {messages.common.sendEnquiry}
               </Link>
             </div>
           </div>

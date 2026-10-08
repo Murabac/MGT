@@ -3,24 +3,55 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { FormEvent, useEffect, useMemo, useState } from "react";
+import { useLocale } from "@/components/LocaleProvider";
 import { PageHero } from "@/components/PageHero";
-import { COMPANY_INFO, SERVICES } from "@/content/site";
+import { LOCALES, localizedHref } from "@/content/i18n";
+import { COMPANY_INFO, getServices } from "@/content/site";
 import { telHref, whatsappHref } from "@/lib/phone";
 
+function resolvePrefillService(
+  prefill: string,
+  services: ReturnType<typeof getServices>,
+): string {
+  if (!prefill) return services[0]?.title ?? "";
+
+  const normalized = prefill.toLowerCase();
+  const inCurrent = services.find(
+    (service) =>
+      service.id === prefill ||
+      service.title === prefill ||
+      service.title.toLowerCase() === normalized,
+  );
+  if (inCurrent) return inCurrent.title;
+
+  for (const loc of LOCALES) {
+    const catalog = getServices(loc);
+    const match = catalog.find(
+      (service) =>
+        service.id === prefill ||
+        service.title === prefill ||
+        service.title.toLowerCase() === normalized,
+    );
+    if (match) {
+      const localized = services.find((service) => service.id === match.id);
+      if (localized) return localized.title;
+    }
+  }
+
+  return prefill;
+}
+
 export function ContactPage() {
+  const { locale, messages } = useLocale();
   const searchParams = useSearchParams();
   const prefillService = searchParams.get("service") ?? "";
 
-  const resolvedService = useMemo(() => {
-    if (!prefillService) return SERVICES[0].title;
-    const match = SERVICES.find(
-      (service) =>
-        service.title === prefillService ||
-        service.id === prefillService ||
-        service.title.toLowerCase() === prefillService.toLowerCase(),
-    );
-    return match?.title ?? prefillService;
-  }, [prefillService]);
+  const services = useMemo(() => getServices(locale), [locale]);
+
+  const resolvedService = useMemo(
+    () => resolvePrefillService(prefillService, services),
+    [prefillService, services],
+  );
 
   const [name, setName] = useState("");
   const [organization, setOrganization] = useState("");
@@ -33,22 +64,31 @@ export function ContactPage() {
   }, [resolvedService]);
 
   const urgentPhone = COMPANY_INFO.phones[0];
+  const dash = "—";
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const prefillLines = messages.home.whatsappPrefill.split("\n");
+    const greeting = prefillLines[0] ?? "";
+    const intro = prefillLines[2] ?? "";
+    const closing = prefillLines[prefillLines.length - 1] ?? "";
+
     const lines = [
-      "Hello MGT Group,",
+      greeting,
       "",
-      "I would like to submit a logistics enquiry.",
-      `Name: ${name.trim() || "—"}`,
-      `Organization: ${organization.trim() || "—"}`,
-      `Phone: ${phone.trim() || "—"}`,
-      `Service: ${service}`,
+      intro,
+      `${messages.contact.fullName}: ${name.trim() || dash}`,
+      `${messages.contact.organization}: ${organization.trim() || dash}`,
+      `${messages.contact.phone}: ${phone.trim() || dash}`,
+      `${messages.contact.serviceNeeded}: ${service}`,
     ];
     if (message.trim()) {
-      lines.push("", "Details:", message.trim());
+      lines.push("", `${messages.common.details}:`, message.trim());
     }
-    lines.push("", "Please advise on availability and next steps.");
+    if (closing) {
+      lines.push("", closing);
+    }
 
     window.open(
       whatsappHref(urgentPhone, lines.join("\n")),
@@ -60,14 +100,14 @@ export function ContactPage() {
   return (
     <main id="main" className="w-full bg-page text-ink">
       <PageHero
-        eyebrow="Contact & Dispatch"
-        title="Request a quote or field dispatch."
-        description="Send your requirement to the Hargeisa desk. We coordinate fleet, freight, customs, procurement, and warehousing for UN, INGO, and public programs."
+        eyebrow={messages.contact.eyebrow}
+        title={messages.contact.title}
+        description={messages.contact.description}
         meta={
           <>
             <span className="font-bold text-white">{COMPANY_INFO.office}</span>
             <span className="text-[#1b5ec2]">·</span>
-            <span>Response via WhatsApp or phone</span>
+            <span>{messages.contact.metaResponse}</span>
           </>
         }
       />
@@ -78,14 +118,13 @@ export function ContactPage() {
             <div className="lg:col-span-7">
               <div className="mb-6">
                 <span className="font-condensed text-xs font-bold uppercase tracking-widest text-green">
-                  Enquiry form
+                  {messages.contact.formEyebrow}
                 </span>
                 <h2 className="mt-1 text-2xl font-extrabold tracking-tight text-ink">
-                  Tell us what you need
+                  {messages.contact.formTitle}
                 </h2>
                 <p className="mt-1 text-sm text-muted">
-                  Submitting opens WhatsApp with your details ready to send to
-                  our dispatch line.
+                  {messages.contact.formHelp}
                 </p>
               </div>
 
@@ -96,7 +135,7 @@ export function ContactPage() {
                       htmlFor="contact-name"
                       className="block text-xs font-bold uppercase tracking-wider text-ink"
                     >
-                      Full name
+                      {messages.contact.fullName}
                     </label>
                     <input
                       id="contact-name"
@@ -105,7 +144,7 @@ export function ContactPage() {
                       onChange={(event) => setName(event.target.value)}
                       autoComplete="name"
                       className="h-[46px] w-full rounded-brand border border-line bg-surface px-3.5 text-sm font-medium text-ink outline-none focus:border-blue"
-                      placeholder="Your name"
+                      placeholder={messages.contact.fullNamePlaceholder}
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -113,7 +152,7 @@ export function ContactPage() {
                       htmlFor="contact-org"
                       className="block text-xs font-bold uppercase tracking-wider text-ink"
                     >
-                      Organization
+                      {messages.contact.organization}
                     </label>
                     <input
                       id="contact-org"
@@ -122,7 +161,7 @@ export function ContactPage() {
                       onChange={(event) => setOrganization(event.target.value)}
                       autoComplete="organization"
                       className="h-[46px] w-full rounded-brand border border-line bg-surface px-3.5 text-sm font-medium text-ink outline-none focus:border-blue"
-                      placeholder="Agency / NGO / company"
+                      placeholder={messages.contact.organizationPlaceholder}
                     />
                   </div>
                 </div>
@@ -133,7 +172,7 @@ export function ContactPage() {
                       htmlFor="contact-phone"
                       className="block text-xs font-bold uppercase tracking-wider text-ink"
                     >
-                      Phone / WhatsApp
+                      {messages.contact.phone}
                     </label>
                     <input
                       id="contact-phone"
@@ -142,7 +181,7 @@ export function ContactPage() {
                       onChange={(event) => setPhone(event.target.value)}
                       autoComplete="tel"
                       className="h-[46px] w-full rounded-brand border border-line bg-surface px-3.5 text-sm font-medium text-ink outline-none focus:border-blue"
-                      placeholder="Your contact number"
+                      placeholder={messages.contact.phonePlaceholder}
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -150,7 +189,7 @@ export function ContactPage() {
                       htmlFor="contact-service"
                       className="block text-xs font-bold uppercase tracking-wider text-ink"
                     >
-                      Service needed
+                      {messages.contact.serviceNeeded}
                     </label>
                     <select
                       id="contact-service"
@@ -158,12 +197,12 @@ export function ContactPage() {
                       onChange={(event) => setService(event.target.value)}
                       className="h-[46px] w-full rounded-brand border border-line bg-surface px-3.5 text-sm font-medium text-ink outline-none focus:border-blue"
                     >
-                      {SERVICES.map((item) => (
+                      {services.map((item) => (
                         <option key={item.id} value={item.title}>
                           {item.number}. {item.title}
                         </option>
                       ))}
-                      {!SERVICES.some((item) => item.title === service) &&
+                      {!services.some((item) => item.title === service) &&
                       service ? (
                         <option value={service}>{service}</option>
                       ) : null}
@@ -176,7 +215,7 @@ export function ContactPage() {
                     htmlFor="contact-message"
                     className="block text-xs font-bold uppercase tracking-wider text-ink"
                   >
-                    Route, cargo, or additional details
+                    {messages.contact.message}
                   </label>
                   <textarea
                     id="contact-message"
@@ -184,7 +223,7 @@ export function ContactPage() {
                     onChange={(event) => setMessage(event.target.value)}
                     rows={5}
                     className="w-full resize-y rounded-brand border border-line bg-surface px-3.5 py-3 text-sm font-medium text-ink outline-none focus:border-blue"
-                    placeholder="Corridor, dates, cargo type, passenger count, or any special requirements…"
+                    placeholder={messages.contact.messagePlaceholder}
                   />
                 </div>
 
@@ -193,13 +232,13 @@ export function ContactPage() {
                     type="submit"
                     className="rounded-brand bg-blue px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-deep"
                   >
-                    Send on WhatsApp →
+                    {messages.contact.sendWhatsApp}
                   </button>
                   <a
                     href={telHref(urgentPhone)}
                     className="text-xs font-bold text-ink hover:text-blue"
                   >
-                    Or call {urgentPhone}
+                    {messages.contact.orCall} {urgentPhone}
                   </a>
                 </div>
               </form>
@@ -208,18 +247,18 @@ export function ContactPage() {
             <aside className="space-y-5 lg:col-span-5">
               <div className="rounded-brand border border-line bg-surface p-5 sm:p-6">
                 <h2 className="text-sm font-bold uppercase tracking-wider text-ink">
-                  Hargeisa operations
+                  {messages.contact.opsTitle}
                 </h2>
                 <dl className="mt-4 space-y-4 text-sm">
                   <div>
                     <dt className="text-[11px] font-bold uppercase tracking-wider text-muted">
-                      Office
+                      {messages.contact.office}
                     </dt>
                     <dd className="mt-1 text-ink">{COMPANY_INFO.office}</dd>
                   </div>
                   <div>
                     <dt className="text-[11px] font-bold uppercase tracking-wider text-muted">
-                      Email
+                      {messages.contact.email}
                     </dt>
                     <dd className="mt-1">
                       <a
@@ -232,7 +271,7 @@ export function ContactPage() {
                   </div>
                   <div>
                     <dt className="text-[11px] font-bold uppercase tracking-wider text-muted">
-                      Dispatch lines
+                      {messages.contact.dispatchLines}
                     </dt>
                     <dd className="mt-1.5 space-y-1.5">
                       {COMPANY_INFO.fourMainPhones.map((number) => (
@@ -251,22 +290,21 @@ export function ContactPage() {
 
               <div className="rounded-brand border border-line bg-page p-5 sm:p-6">
                 <p className="font-condensed text-xs font-bold uppercase tracking-widest text-green">
-                  Prefer WhatsApp directly?
+                  {messages.contact.preferWhatsApp}
                 </p>
                 <p className="mt-2 text-xs leading-relaxed text-muted">
-                  Message the main dispatch number without the form — useful for
-                  urgent field requests.
+                  {messages.contact.preferWhatsAppBody}
                 </p>
                 <a
                   href={whatsappHref(
                     urgentPhone,
-                    "Hello MGT Group, I need urgent logistics support.",
+                    messages.contact.directPrefill,
                   )}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-4 inline-flex rounded-brand bg-[#25D366] px-5 py-3 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-[#1ebe57]"
                 >
-                  Open WhatsApp chat
+                  {messages.contact.openWhatsApp}
                 </a>
               </div>
             </aside>
@@ -279,27 +317,27 @@ export function ContactPage() {
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div className="space-y-2">
               <span className="font-condensed text-xs font-bold uppercase tracking-widest text-yellow">
-                Work with MGT
+                {messages.common.workWithMgt}
               </span>
               <h2 className="text-xl font-bold text-white sm:text-2xl">
-                Review our services before you enquire
+                {messages.contact.ctaTitle}
               </h2>
               <p className="text-xs text-white/80 sm:text-sm">
-                Twelve logistics capabilities across Somaliland and Somalia.
+                {messages.contact.ctaBody}
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
               <Link
-                href="/services"
+                href={localizedHref(locale, "/services")}
                 className="rounded-brand border border-white/35 bg-transparent px-5 py-3 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:border-white hover:bg-white/10"
               >
-                View services
+                {messages.common.viewServices}
               </Link>
               <Link
-                href="/clients"
+                href={localizedHref(locale, "/clients")}
                 className="rounded-brand bg-white px-6 py-3 text-xs font-bold uppercase tracking-wider text-green transition-colors hover:bg-yellow hover:text-ink"
               >
-                See partners
+                {messages.common.seePartners}
               </Link>
             </div>
           </div>

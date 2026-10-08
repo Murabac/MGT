@@ -18,6 +18,12 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "-apple-system", "sans-serif"],
         condensed: ["var(--font-condensed)", "sans-serif"],
+        arabic: [
+          "var(--font-arabic)",
+          "var(--font-sans)",
+          "system-ui",
+          "sans-serif",
+        ],
       },
       maxWidth: {
         page: "1240px",
